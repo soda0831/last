@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>게시글 등록</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    label {
+      margin: 10px 0 5px;
+    }
+
+    input, textarea {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 100%;
+      resize: vertical;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .link-text {
+      text-decoration: none;
+      color: #007bff;
+      font-size: 18px;
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+
+    .link-text:hover {
+      color: #0056b3;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>게시글 쓰기</h1>
+    <form id="registerForm">
+      <label for="name">제목</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="info">내용</label>
+      <textarea id="info" name="info" rows="5" required></textarea>
+
+      <button type="submit">등록</button>
+    </form>
+    
+    <!-- 클릭하면 view.html로 이동하는 텍스트 링크 -->
+    <a class="link-text" href="view.html">등록된 게시글 보기</a> 
+  </div>
+
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // 기본 제출 이벤트 방지
+
+      const name = document.getElementById('name').value;
+      const info = document.getElementById('info').value;
+      
+      // 로컬 스토리지에 데이터 저장
+      const storedData = JSON.parse(localStorage.getItem('registeredData')) || [];
+      storedData.push({ name, info });
+      localStorage.setItem('registeredData', JSON.stringify(storedData));
+
+      // 폼 초기화
+      document.getElementById('name').value = '';
+      document.getElementById('info').value = '';
+
+      alert('정보가 등록되었습니다.');
+    });
+  </script>
+</body>
+</html>

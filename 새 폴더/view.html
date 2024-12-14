@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>오산대 정보통</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+
+      background-image: url('https://imgur.com/AwhnLOH'); /* 실제 URL로 변경 */
+      background-size: cover;  /* 이미지가 화면을 가득 채우도록 설정 */
+      background-position: center center; /* 이미지를 화면 중앙에 배치 */
+      background-attachment: fixed; /* 스크롤 시 배경이 고정되도록 설정 */
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      min-height: 500px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .info-item {
+      background: #e9ecef;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+    }
+
+    a {
+      text-decoration: none;
+      color: #007bff;
+      font-size: 18px;
+      display: block;
+      margin-bottom: 10px;
+      padding-left: 10px;
+    }
+
+    a:hover {
+      color: #0056b3;
+      text-decoration: underline;
+    }
+
+    .link-text {
+      text-decoration: none;
+      color: #007bff;
+      font-size: 18px;
+      display: block;
+      margin-top: 20px;
+      text-align: left;
+      padding-left: 10px;
+    }
+
+    .link-text:hover {
+      color: #0056b3;
+      text-decoration: underline;
+    }
+
+    .info-card {
+      background-color: #f8f9fa;
+      border: 0px solid #ccc;
+      border-radius: 1px;
+      padding: 0px;
+      margin: bottom  15px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .info-card:hover {
+      background-color: #e9ecef;
+    }
+
+    /* 하단에 버튼들을 고정시키기 */
+    .button-container {
+      margin-top: auto;
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .button-container a {
+      font-size: 18px;
+      text-decoration: none;
+      color: #007bff;
+    }
+
+    .button-container a:hover {
+      color: #0056b3;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>오산대 정보통</h1>
+    <div id="infoList"></div>
+
+    <!-- 하단에 버튼들을 배치 -->
+    <div class="button-container">
+      <a href="register.html">게시글 등록하기</a>
+      <a href="index.html">바탕화면으로 돌아가기</a>
+    </div>
+  </div>
+
+  <script>
+    const infoList = document.getElementById('infoList');
+    const storedData = JSON.parse(localStorage.getItem('registeredData')) || [];
+
+    if (storedData.length === 0) {
+      infoList.innerHTML = '<p>등록된 게시글이 없습니다.</p>';
+    } else {
+      storedData.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.classList.add('info-card');
+
+        const link = document.createElement('a');
+        link.href = `infoPage.html?index=${index}`;
+        link.textContent = item.name;
+        link.classList.add('link-text');
+
+        card.appendChild(link);
+        infoList.appendChild(card);
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>게시글 보기</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .info-item {
+      background: #e9ecef;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #fff;
+      background-color: #3e648b;
+      padding: 10px 20px;
+      border-radius: 5px;
+    }
+
+    a:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 id="infoTitle">등록된 정보 보기</h1> <!-- 제목을 동적으로 수정 -->
+    <div id="infoDetails"></div>
+    <a href="view.html">뒤로 가기</a>
+  </div>
+
+  <script>
+    const infoTitle = document.getElementById('infoTitle');
+    const infoDetails = document.getElementById('infoDetails');
+    const urlParams = new URLSearchParams(window.location.search);
+    const index = urlParams.get('index');  // URL에서 index 파라미터 가져오기
+    const storedData = JSON.parse(localStorage.getItem('registeredData')) || [];
+
+    if (storedData.length === 0 || !index) {
+      infoDetails.innerHTML = '<p>잘못된 정보입니다.</p>';
+    } else {
+      const item = storedData[index];
+
+      // 제목을 "등록된 정보 보기"에서 등록된 정보 제목으로 수정
+      infoTitle.textContent = item.name;
+
+      // 내용만 표시
+      infoDetails.innerHTML = `
+        <div class="info-item">
+          <p>${item.info}</p> <!-- 제목은 제외하고 내용만 표시 -->
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>
